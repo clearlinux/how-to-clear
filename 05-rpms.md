@@ -197,9 +197,13 @@ upstream bundle, or we can even include an upstream bundle that already
 has `dmidecode` present. For simplicity, we'll make a new local bundle:
 
 ```
-~/mix $ mixer bundle add dmidecode
 ~/mix $ mixer bundle edit dmidecode
+~/mix $ mixer bundle add dmidecode
 ```
+
+Note that the order here isn't a mistake - `edit` will allow you to
+register a new bundle, and `add` will insert it to the list of bundles
+that are going to be included in the build.
 
 Add the `dmidecode2` RPM file name to the bundle, and you're ready to
 deploy the change:
