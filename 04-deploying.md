@@ -163,6 +163,12 @@ with the `build image` subcommand.
 ~/mix $ sudo mixer build image
 ```
 
+Note: If you have made any changes to `builder.conf` or the content
+of your mix, you need to run `sudo mixer build all` before creating
+a new image, otherwise your image will be possibly built with old
+content and not include the needed URL changes for `swupd` to work
+properly inside the image.
+
 This outputs a file called `release.img` which is directly bootable in 
 Qemu. We use the standard `start_qemu.sh` script to invoke Qemu to then 
 invoke the image and redirect the VM output to our local console. For 
