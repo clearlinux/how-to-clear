@@ -106,7 +106,7 @@ telemetry events with `telemctl`:
 A full example of the hearbeat probe in C is documented in the source 
 code here:
 
-[https://github.com/clearlinux/telemetrics-client/blob/master/src/probes/hello.c]()
+[https://github.com/clearlinux/telemetrics-client/blob/master/src/probes/hello.c](telemetrics heartbeat probe - implementation)
 
 
 ## Pointing telemetry to a custom backend
@@ -125,6 +125,6 @@ custom collection URL built into the binary.
 
 ## Further reading
 
-* [https://clearlinux.org/features/telemetry]()
-* [https://clearlinux.org/documentation/clear-linux/tutorials/telemetry-backend]()
+* [https://clearlinux.org/features/telemetry](Telemetry Features in Clear Linux)
+* [https://clearlinux.org/documentation/clear-linux/tutorials/telemetry-backend](Setting up a Telemetrics collection service)
 
