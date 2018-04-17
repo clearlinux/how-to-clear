@@ -77,7 +77,7 @@ This training is hosted on github. We appreciate any feedback and
 comments, especially in the form of Pull Requests. Please visit the 
 project page to open a ticket or clone/branch the training and help us.
 
-    [how-to-clear](https://github.com/clearlinux/how-to-clear/)
+[how-to-clear](https://github.com/clearlinux/how-to-clear/)
 
 For the convenience of students, we've included a folder called `files`
 and added most of the files that will need to be created or downloaded
