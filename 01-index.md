@@ -4,7 +4,7 @@ How To Clear
 
 ## Table of Contents
 
- 1.  [Index][01-index.md]
+ 1.  [Index](01-index.md)
  2.  [Concepts](02-concepts.md)
  3.  [Extent of this training](03-scope.md)
  4.  [Basic Mixing](04-mixing.md)
