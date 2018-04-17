@@ -71,7 +71,7 @@ a handy shell script to do this. You can find it either on the
 `files` folder in the training repository.
 
 ```
-~ $ how-to-clear/files/common/user-setup.sh
+~ $ how-to-clear/files/clr/user-setup.sh
 ```
 
 This command creates a folder called `clearlinux`. Note we are 
