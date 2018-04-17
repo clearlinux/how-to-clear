@@ -11,7 +11,7 @@ in some way.
 
 This is useful for people who want to custom tailor the Clear Linux
 OS for their personal or professional purposes, but remain to update
-their content regularly with updates from [clearlinux.org].
+their content regularly with updates from [https://clearlinux.org/](clearlinux.org).
 
 The extent of the modifications that someone could make is not
 limited. One could just change the organization and not the content,
