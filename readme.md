@@ -21,5 +21,5 @@ is also covered.
 
 ## Issues?
 
-See [https://github.com/clearlinux/how-to-clear/blob/master/00-readme.md#need-help]
+See [https://github.com/clearlinux/how-to-clear/blob/master/01-index.md#need-help]
 

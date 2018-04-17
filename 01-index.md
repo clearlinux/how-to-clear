@@ -4,15 +4,16 @@ How To Clear
 
 ## Table of Contents
 
- 1.  [Concepts](01-concepts.md)
- 2.  [Extent of this training](02-scope.md)
- 3.  [Basic Mixing](03-mixing.md)
- 4.  [Deploying a Mix](04-deploying.md)
- 5.  [Adding in custom RPMs](05-rpms.md)
- 6.  Developer topics:
-     1.  [Telemetry](06-1-telemetry.md)
-     2.  [QA and testing](06-2-qa-testing.md)
-     3.  [Debugging](06-3-debugging.md)
+ 1.  [Index][01-index.md]
+ 2.  [Concepts](02-concepts.md)
+ 3.  [Extent of this training](03-scope.md)
+ 4.  [Basic Mixing](04-mixing.md)
+ 5.  [Deploying a Mix](05-deploying.md)
+ 6.  [Adding in custom RPMs](06-rpms.md)
+ 7.  Developer topics:
+     1.  [Telemetry](07-1-telemetry.md)
+     2.  [QA and testing](07-2-qa-testing.md)
+     3.  [Debugging](07-3-debugging.md)
 
 ```
 ~ $ git clone https://github.com/clearlinux/how-to-clear
