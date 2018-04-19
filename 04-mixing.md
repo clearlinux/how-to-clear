@@ -7,8 +7,8 @@ How To Clear - Mixing content and creating updates
 * Initializing a new content stream
 * Version numbering
 * Format version numbering
-* Working with the upstream Clear Linux OS
-* Creating, modifying and modifying bundles
+* Working with the upstream Clear Linux\* OS
+* Creating and modifying bundles
 * Creating the update content
 * Creating an update
 
@@ -17,23 +17,23 @@ How To Clear - Mixing content and creating updates
 The `swupd` software delivery mechanism treats everything as an update. 
 It does this by querying metadata from an update server and calculating 
 what it needs to do and which content to use. The format of this data 
-and metadata is very simple, and easy to understand and reproduce, but 
+and metadata is simple, easy to understand, and reproduce, but 
 `swupd` needs a lot of it.
 
-As the update content describes every file in the OS, it is a large 
-database that needs to be kept synchronized on the client system. 
+Since the update content describes every file in the OS, it is a large 
+database that must be kept synchronized on the client system. 
 Maintaining these metadata lists is expensive, and the system is 
 designed to do all the hard work on the server side, so that clients 
 only need to work on small subsets of the data to perform the needed 
 operations to update or install components.
 
 `swupd` uses separate files for content and for metadata. Content often 
-does not change between versions. To save space the server only stores 
+does not change between versions. To save space, the server only stores 
 one copy of each file in the version that it was last updated. This 
 content is also compressed on the server, and each piece of content is 
 identified by a hash value that is unique for both the content of the 
 data, and the properties of the inode on the file system. In this way, 
-if a file changes permissions, xattr tags or ownership, this is 
+if a file changes permissions, xattr tags, or ownership, it is 
 considered a normal update from one content unit to a new content unit.
 
 The metadata is similarly reused between different versions of the OS. 
@@ -51,39 +51,39 @@ files come in two different levels. Each bundle is maintained in its
 own Manifest file, and there is one Manifest-of-Manifests file that 
 contains metadata on all the Manifests that exist for each bundle.
 
-Here is how a Manifest file looks:
+Here is an example of a Manifest file:
 
 ```
-MANIFEST	25
-version:	21810
-previous:	21800
-filecount:	1975
-timestamp:	1523538780
-contentsize:	46217487
+MANIFEST       25
+version:       21810
+previous:      21800
+filecount:     1975
+timestamp:     1523538780
+contentsize:   46217487
 
-D...	6c27df6efcd6fc401ff1bc67c970b83eef115f6473db4fb9d57e5de317eba96e	21530	/boot
-D...	6c27df6efcd6fc401ff1bc67c970b83eef115f6473db4fb9d57e5de317eba96e	21530	/dev
-D...	6c27df6efcd6fc401ff1bc67c970b83eef115f6473db4fb9d57e5de317eba96e	21530	/etc
-L...	3f2e21f5de1fb40955f59667b837b6004254581e64404ce0f0f692bc35a22d76	21530	/usr/bin/b2sum
-L...	3f2e21f5de1fb40955f59667b837b6004254581e64404ce0f0f692bc35a22d76	21530	/usr/bin/base32
-F...	634ed1be7098435e3a3f28f13740b260e171e9d65891a002998d1e5fc691b471	21530	/usr/bin/chattr
+D...  6c27df6efcd6fc401ff1bc67c970b83eef115f6473db4fb9d57e5de317eba96e  21530 /boot
+D...  6c27df6efcd6fc401ff1bc67c970b83eef115f6473db4fb9d57e5de317eba96e  21530 /dev
+D...  6c27df6efcd6fc401ff1bc67c970b83eef115f6473db4fb9d57e5de317eba96e  21530 /etc
+L...  3f2e21f5de1fb40955f59667b837b6004254581e64404ce0f0f692bc35a22d76  21530 /usr/bin/b2sum
+L...  3f2e21f5de1fb40955f59667b837b6004254581e64404ce0f0f692bc35a22d76  21530 /usr/bin/base32
+F...  634ed1be7098435e3a3f28f13740b260e171e9d65891a002998d1e5fc691b471  21530 /usr/bin/chattr
 <snip>
 ```
 
-At the top of the manifest is some generic metadata that various cli 
-commands use to make e.g. searching produce better output. The `format 
-version` sits right at the top and describes the epoch, or generation 
+At the top of the manifest is generic metadata that various CLI 
+commands use to make tasks such as searching produce better output. The 
+`format version` sits right at the top and describes the epoch, or generation 
 of the metadata format. While the format itself is largely stable, it 
 will be changed any time a breaking change is introduced to the 
 metadata format. Because this change requires a corresponding client 
-update a format boundary will assure clients update to a certain 
+update, a format boundary ensures that clients update to a certain 
 version to get the new updater. In this way it can be used as a 
-milepost marker. The `version` and `previous` items describe the actual 
-Clear Linux OS version that this metadata is from.
+milepost marker. The `version` and `previous` metadata come from the actual 
+Clear Linux OS version.
 
 After the header, there follows a long list of content metadata that 
-describes the files, directories and links, their content/metadata 
-hashes, the version last changed, and the various informational flags 
+describes the files, directories and links; their content/metadata 
+hashes; the version last changed; and the various informational flags 
 for client use.
 
 From left to right, the columns designate the type of content, the hash 
@@ -99,17 +99,17 @@ https://download.clearlinux.org/update/21530/files/634ed1be7098435e3a3f28f13740b
 ```
 
 Note the version number in the URL isn't `21810` but this content comes 
-from an earlier update, as listed in the Manifest(`21530`).
+from an earlier update, as listed in the Manifest (`21530`).
 
 
 ### Content 
 
 The content that `swupd` delivers is provided to the OS in different 
 ways to optimize the download and make it as small as possible. For the 
-most common cases the server calculates the mininum needed delta 
+most common cases, the server calculates the minimum needed delta 
 between the content files and creates a binary diff that is very 
-efficient. In the case the client needs a clean, and full, copy of the 
-original file, this is also provided. And in the case of someone 
+efficient. If the client needs a clean, and full, copy of the 
+original file, this is also provided. For the case of someone 
 installing an entire bundle, the bundle content is provided as a 
 tarball of the entire content all at once.
 
@@ -125,13 +125,13 @@ compression method for most of the content. However, in some cases, the
 files will be bzip2 or gzip compressed. The server automatically finds 
 the best compression algorithm for the content.
 
-The server also creates delta packs, and zero packs. These are 
+The server also creates delta packs and zero packs. These are 
 optimizations where the server speculatively combines content based on 
 the assumption that you will need many of them for certain actions. The 
 client will use them if they are available, but they are entirely 
 optional. Delta packs contain the binary deltas for changes to files 
 made from the source update to the target update. For any new files or 
-files with changes too large to make a binary delta worth it a full 
+files with changes too large for a binary delta, a full 
 file is included in the delta pack itself. In this way delta packs 
 contain an update from one arbitrary version to another.
 
@@ -145,17 +145,17 @@ content must also be verified prior to patching.
 
 Similarly, zero packs define an update from one version to another, but 
 the source version is always zero. Since the zero release contained no 
-files the zero pack contains all full files present in the target 
+files, the zero pack contains all full files present in the target 
 version.
 
 
 ## Mixing
 
-The `mixer-tools` suite software is what generates the update server 
+The `mixer-tools` suite software generates the update server 
 content. It does this using the following inputs:
 
 * The Clear Linux OS official software update content
-* Local Bundle definitions
+* Local bundle definitions
 * Local RPM files
 
 This is exactly how the Clear Linux OS team generates the official 
@@ -164,7 +164,7 @@ software update content, except that the official Clear Linux OS has no
 definitions and RPM files to create all the content. The tooling is 
 exactly the same, however.
 
-At the start, we've already seen how the update content looks after it 
+We've already seen how the update content looks after it 
 comes out of the mixer. The goal of this chapter is to get you familiar 
 with the methods used to create this yourself.
 
@@ -172,7 +172,7 @@ with the methods used to create this yourself.
 ## Initializing the workspace
 
 The mixer tools use a simple workspace to contain all input and output 
-in a simple folder hierarchy. We'll call this the mixer workspace. You 
+in a simple folder hierarchy. We call this the mixer workspace. You 
 can create it simply by making an empty folder:
 
 ```
@@ -181,10 +181,9 @@ can create it simply by making an empty folder:
 ~/mix $
 ```
 
-From here on, we'll be using the `mixer` cli tool extensively. This is 
-a good point in time to review the cli and read through the options and 
-general usage before going to use the various options that it has, as 
-you will run into them later at some point.
+From here on, we will use the `mixer` CLI tool extensively. This is 
+a good time to review the CLI and read through the options and 
+general usage before continuing this training.
 
 ```
 ~/mix $ mixer --help
@@ -212,7 +211,7 @@ Flags:
 Use "mixer [command] --help" for more information about a command.
 ```
 
-This is also the last chance to double check that `mixer` is 
+This is also your last chance to double check that `mixer` is 
 functionally complete and you don't need to install any more Clear 
 Linux OS bundles.
 
@@ -220,14 +219,13 @@ Linux OS bundles.
 ~/mix $ mixer --check
 ```
 
-We start by initializing mixer. Since we'll be doing more detailed 
-exercises later in subsequent chapters, we'll be adding a few options 
-to prevent later having to reinitialize the workspace.
+We start by initializing mixer. Since we will do more detailed 
+exercises later in subsequent chapters, we will add a few options 
+to prevent having to reinitialize the workspace later.
 
-We are also going to be making updates to the content, both from 
-upstream and from our own changes. To demonstrate this, we'll start the 
-mix with a slightly older version of Clear Linux OS in order to 
-demonstrate how this works.
+We are also going make updates to the content, both from 
+upstream and from our own changes. We start the mix with a slightly
+older version of Clear Linux OS to demonstrate how this works.
 
 ```
 ~/mix $ mixer init --clear-version 21530 --mix-version 10 --local-rpms 
@@ -274,9 +272,9 @@ the basic configuration options for `mixer`. Most of the options are
 references to the folder structure in the workspace and some basic 
 entries that will be needed.
 
-The items of interest in this file for deployment are going to be the 
-`CONTENTURL` and `VERSIONURL` entries that will be needed by systems 
-that will update against the mix content that we'll be generating. At a 
+The items of interest in this file for deployment are the 
+`CONTENTURL` and `VERSIONURL` entries that are needed by systems 
+that will update against the mix content that we are generating. At a 
 later stage we'll fill these in.
 
 The `CERT` variable sets the path where mixer stores the certificate 
@@ -354,7 +352,7 @@ to show a visual representation of the inclusion relationships between
 the bundles in the mix.
 
 
-## Create the initial Mix content
+## Create the initial mix content
 
 ```
 ~/mix $ sudo mixer build all
@@ -405,6 +403,6 @@ content again and you are finished.
 ## What else to try
 
 * Edit an upstream bundle and change the package list to include or 
-exclude packages
-* Validate a modified bundle
-* Downgrade your mix to an older upstream version
+exclude packages.
+* Validate a modified bundle.
+* Downgrade your mix to an older upstream version.

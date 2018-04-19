@@ -1,11 +1,11 @@
 
-How To Clear - Clear Linux Telemetry
-====================================
+How To Clear - Clear Linux\* telemetry
+======================================
 
 ## What you'll learn in this chapter
 
 * Ground rules of telemetry, privacy, opt-in
-* Basics of Clear Linux OS Telemetry
+* Basics of Clear Linux OS telemetry
 * Creating a custom telemetry event
 * Backend collection concepts
 
@@ -14,7 +14,7 @@ How To Clear - Clear Linux Telemetry
 
 Clear Linux OS uses a lightweight telemetry solution to allow 
 applications to avoid being concerned with transporting the data and 
-whether a user has opted in or out, and can be used to provide near 
+whether a user has opted in or out. The solution can provide near 
 real time data to improve applications.
 
 Because software updates in Clear Linux OS are performed automatically, 
@@ -25,18 +25,18 @@ helps developers monitor their applications.
 
 By default, telemetry isn't opt-out and the installer will ask people 
 if telemetry should be enabled, with the default selection being "not 
-enabled". We do however encourage people to enable telemetry to help 
+enabled". We do encourage people to enable telemetry to help 
 out and make Clear Linux OS higher quality.
 
-Intels privacy policies are applicable to the Clear Linux OS telemetry 
+Intel's privacy policies are applicable to the Clear Linux OS telemetry 
 stack, and the Clear Linux OS telemetry does not collect intentionally 
-identifyable information about the user or system owner. People who use 
-the telemetry APIs discussed in this chapter should assure that this 
-use also does not conflict with any of the policies or privacy laws.
+identifiable information about the user or system owner. People who use 
+the telemetry APIs discussed in this chapter must ensure that their 
+use does not conflict with any Intel policies or local privacy laws.
 
 The telemetry API revolves around the delivery of telemetry records as 
 an individual unit to a HTTPS collection service. On the client, a 
-spooling daemon `telemd` takes care of opt-in/out, throttling and 
+spooling daemon `telemd` takes care of opt-in/out, throttling, and 
 encapsulating the telemetry data. Several telemetry probes generate 
 probe specific payload data and deliver it to the `telemd` service for 
 delivery.
@@ -44,8 +44,8 @@ delivery.
 
 ## How to start
 
-First, we'll need to enable telemetry on the target device. For this, 
-we have to add the telemetrics bundle to our mix, and make it available 
+First, we enable telemetry on the target device. For this, 
+we add the telemetrics bundle to our mix, and make it available 
 to clients.
 
 ```
@@ -54,8 +54,8 @@ Adding bundle "telemetrics" from upstream bundles
 ~/mix $ sudo mixer build all
 ```
 
-We can obviously modify the image to add telemetry by default as a 
-bundle, but we'd lose our existing system, so we'll just add it on our 
+We can modify the image to add telemetry by default as a 
+bundle, but we would lose our existing system. We add it on our 
 target device manually for now:
 
 ```
@@ -63,9 +63,9 @@ target device manually for now:
 ~ # swupd bundle-add telemetrics
 ```
 
-Essentially, we now have everything to already create telemetry events, 
-even from C programs or Python if needed, because the telemetry bundle 
-provides a simple pipe-based cli program that can be called trivially:
+Essentially, we now have everything to create telemetry events, 
+even from C programs or Python\* if needed, because the telemetry bundle 
+provides a simple pipe-based CLI program that can be called trivially:
 
 ```
 ~ # telem-record-gen --help
@@ -89,8 +89,8 @@ Application Options:
 Using the C library (`libtelemetry.so` - `man 3 telemetry`) uses the 
 exact same API parameters and yields the same effect.
  
-Let's try generating a simple hearbeat event, similar to the `hprobe` 
-hearbeat probe that Clear Linux OS includes by default.
+Let's try generating a simple heartbeat event, similar to the `hprobe` 
+heartbeat probe that Clear Linux OS includes by default.
  
 ```
 ~ # telem-record-gen -c org.clearlinux/hello/world -p "hello"
@@ -103,7 +103,7 @@ telemetry events with `telemctl`:
 ~ # telemctl journal
 ```
 
-A full example of the hearbeat probe in C is documented in the source 
+A full example of the heartbeat probe in C is documented in the source 
 code here:
 
 * [https://github.com/clearlinux/telemetrics-client/blob/master/src/probes/hello.c]
@@ -111,7 +111,7 @@ code here:
 
 ## Pointing telemetry to a custom backend
 
-If you have a custom collector functional, you can modify where your 
+If you have a functional custom collector, you can modify where your 
 telemetry records get sent by modifying 
 `/etc/telemetrics/telemetrics.conf` and changing the `server` value to 
 point to the new telemetry collection URL. Setting up a custom 

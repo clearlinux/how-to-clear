@@ -4,7 +4,7 @@ How To Clear - Creating and mixing custom RPMs
 
 ## What you'll learn in this chapter
 
-* Modifying a Clear Linux kernel RPM
+* Modifying a Clear Linux\* kernel RPM
 * Creating a new RPM from an upstream release
 * Adding the custom RPM to the update content
 * Deploying the change to the target system
@@ -23,28 +23,28 @@ allows developers to solve partial problems and not have to rebuild an
 entire OS altogether. This increases speed while still providing all 
 the tools and data needed to prevent breaking dependencies.
 
-RPM files are created as the output of `rpmbuild` which takes a `spec` 
+RPM files are created as the output of `rpmbuild`, which takes a `spec` 
 file as instructions, together with the source code, patches, and 
 miscellaneous files that may be needed during the build. For this 
-purpose the developer doesn't really work with RPM files, instead they 
-work with these `spec` files and miscellaneous files that are the input 
+purpose, the developer doesn't really work with RPM files, instead they 
+work with `spec` files and miscellaneous files that are the input 
 to the `rpmbuild` phase.
 
-This is what we call a **package** in our terminology. These packages 
-live all in their own individual git tree and they are published for 
-users to see, review and reuse at the following github URL:
+This is what we call a **package** in Clear Linux OS terminology. These 
+packages all live in their own individual git tree. They are published for 
+users to see, review, and reuse at the following github URL:
 
     [https://github.com/clearlinux-pkgs]
 
-Working with `spec` files is ... tedious work. A linux distribution 
+Working with `spec` files is tedious work. A Linux distribution 
 typically contains thousands of them and they mostly repeat metadata 
 that can automatically be generated or discovered, so we really don't 
-want to spend too much time on the metadata aspect. The CLear Linux OS 
-team also has created a bunch of tooling that will make dealing and 
+want to spend too much time on the metadata aspect. The Clear Linux OS 
+team also has created tooling to make maintaining and 
 creating these `spec` files easier and largely automated, so that 
 developers can focus on the content instead.
 
-We'll use the `common` tooling to bypass some of the hurdles that make 
+We use the `common` tooling to bypass some of the hurdles that make 
 packaging more difficult and get to borrow most of the upstream content 
 for free. This allows us to modify targeted components for the purpose 
 of our mix quickly.
@@ -57,7 +57,7 @@ only contain libraries that are explicitly required through
 dependencies or as part of the buildroot toolchain.
 
 The buildroot dependencies are obtained from both local and upstream 
-Clear Linux OS `yum` repositories, and dependencies are resolved using 
+Clear Linux OS `yum` repositories. Dependencies are resolved using 
 `dnf` or `yum` such that the buildroot is complete, before rpmbuild 
 commences with the build process.
 
@@ -65,7 +65,7 @@ commences with the build process.
 ## `common`
 
 A repository at github specifically exists to deal with the creation 
-and maintainance of `spec` files. It needs to be setup once and we have 
+and maintainance of `spec` files. It needs to be set up once and we have 
 a handy shell script to do this. You can find it either on the 
 `https://github.com/clearlinux/common/` repository but it's also in the 
 `files` folder in the training repository.
@@ -82,7 +82,7 @@ cloned the training git project at this location, too.
 Inside the `clearlinux` workspace you'll find a `Makefile` and the 
 `projects` and `packages` folders. For now, you won't need to deal with 
 the `projects` folder other than knowing that this is where `autospec` 
-is stored and the `common` project lives, and these two are the heart 
+is stored and the `common` project lives. These two items are the heart 
 of the tooling that deals with making packages for Clear Linux OS.
 
 ```
@@ -92,18 +92,17 @@ of the tooling that deals with making packages for Clear Linux OS.
 ### `packages`
 
 Under the `packages` folder we will store the folders that contain the 
-`spec` and other files and from there we will create RPM files as 
+`spec` and other files. From there we will create RPM files as 
 needed for our training and testing.
 
-The common tooling will allow us to reuse existing Clear Linux OS 
+The common tooling allows us to reuse existing Clear Linux OS 
 packages from upstream, and if we do, these will end up in here. If we 
 end up making our own custom RPM files, we don't necessarily need to 
-put them here at all, but we'll setup the workspace so that `mixer` can 
-use the generated RPM files easily and so it will be easier to do this 
-all in a consistent way, but in the end the `mixer` tooling doesn't 
-care where the RPM files come from and how they are generated, and they 
-can even be copied in if you want to do that, and bypass actually 
-building them.
+put them here at all, but we'll set up the workspace so that `mixer` can 
+use the generated RPM files easily. It is easiest to do this 
+all in a consistent way. In the end, the `mixer` tooling doesn't 
+care where the RPM files come from and how they are generated. The RPM
+files can even be copied in if you want to bypass building them.
 
 We can quickly borrow some of the upstream packages if we desire. This 
 makes for an excellent starting point and shows off the tooling that we 
@@ -134,14 +133,14 @@ have.
 Change `Makefile` such that `PACKAGE_NAME` is `dmidecode2` as well.
 
 Since `dmidecode` is already present in Clear Linux OS, we can just 
-start using that packages and make modifications to it. This allows us 
+start using that package and make modifications to it. This allows us 
 to bypass most of the hurdles of packaging, and gives us a starting 
 point that is as close to what Clear Linux OS uses as possible.
 
 We can make a quick change to this package, and change the revision to 
 a new number that's higher than the Clear Linux OS version, and rebuild 
 it. This way we can include it in our mix and know for sure that it's 
-our version and not the version from Clear Linux OS' RPM repository 
+our version and not the version from the Clear Linux OS RPM repository 
 instead.
 
 Add the following lines to the `excludes` file:
@@ -155,8 +154,8 @@ Add the following lines to the `excludes` file:
 /usr/share/man/man8/vpddecode.8
 ```
 
-These files are not needed by dmidecode, and due to security 
-restructions, they are useless on Clear Linux OS because they require 
+These files are not needed by dmidecode. Due to security 
+restrictions, they are useless on Clear Linux OS because they require 
 `/dev/mem` to be available, which is not the case on Clear Linux OS. We 
 can therefore just remove them from the RPM files without penalty.
 
@@ -164,7 +163,7 @@ can therefore just remove them from the RPM files without penalty.
 ~/clearlinux/packages/dmidecode2 $ make autospec
 ```
 
-We should end up with several new RPM files under `results/`. This 
+We end up with several new RPM files under `results/`. This 
 brings us to the next phase: Adding `dmidecode2` into our mix content 
 and pushing it to our target device.
 
@@ -178,13 +177,13 @@ asking it to use specific RPM files.
 
 In the mixer folder, we've already created a location for RPM files 
 when we used the `mixer init --local-rpms` command in an earlier 
-chapter. We will be using this location to put our newly generated RPM 
+chapter. We will use this location to put our newly generated RPM 
 files and thereby convey them to mixer so it can include them as 
 needed.
 
 The `make autospec` command creates RPM files under each package. We 
 could copy these files manually over to the `local-rpms` folder in the 
-`mix` folder structure, in the future we will have some tools available
+`mix` folder structure. In the future, we plan to have tools available
 to do this more efficiently.
 
 ```
@@ -192,8 +191,8 @@ to do this more efficiently.
 ```
 
 Next, we can include `dmidecode2` in several ways to our update content. 
-We can either create a new bundle, locally. We can modify an existing 
-upstream bundle, or we can even include an upstream bundle that already 
+We can create a new local bundle, we can modify an existing 
+upstream bundle, or we can include an upstream bundle that already 
 has `dmidecode` present. For simplicity, we'll make a new local bundle:
 
 ```
@@ -201,9 +200,9 @@ has `dmidecode` present. For simplicity, we'll make a new local bundle:
 ~/mix $ mixer bundle add dmidecode
 ```
 
-Note that the order here isn't a mistake - `edit` will allow you to
-register a new bundle, and `add` will insert it to the list of bundles
-that are going to be included in the build.
+Note that the order here isn't a mistake - `edit` allows you to
+register a new bundle, and `add` inserts it to the list of bundles
+that will be included in the build.
 
 Add the `dmidecode2` RPM file name to the bundle, and you're ready to
 deploy the change:
@@ -221,18 +220,18 @@ after we update, and use it:
 ~ # dmidecode
 ```
 
-And we can verify that our `biosdecode` program is missing in the same 
+We can verify that our `biosdecode` program is missing in the same 
 way, as expected.
 
 
 ## Linux kernel RPM
 
 One of the more common use cases that people ask us about is how they 
-can modify the Linux kernel on the device. This is entirely similar to 
+can modify the Linux kernel on the device. This is very similar to 
 the above demonstration, but we'll go into the kernel specific aspects 
-one more time.
+in this section.
 
-First, we're going to modify the `linux-kvm` kernel that is already 
+First, we will modify the `linux-kvm` kernel that is already 
 used on the system so that we don't need to switch kernels on the 
 device. For this reason we want to make sure that we've already started 
 with the proper kernel package for the target device. In this training, 
@@ -253,12 +252,12 @@ Again, we have to do a workaround here with the package name:
 ~/clearlinux/packages/linux-kvm2 $ mv linux-kvm.spec linux-kvm2.spec
 ```
 
-You will additionally have to edit `Makefile` again as well as 
+You must edit `Makefile` again as well as 
 `linux-kvm2.spec` to change the package name in both files and add the 
 `2` in there.
 
-We can do a ton of changes to this kernel. For this example we'll 
-disable an option that will be easily verifyable later on. On the 
+We can do a ton of changes to this kernel. For this example, we'll 
+disable an option that is easily verifiable later on. On the 
 target, we can see that the `btrfs` filesystem is supported by the 
 current kernel by doing:
 
@@ -268,7 +267,7 @@ current kernel by doing:
 ```
 
 To disable this, edit the `config` file in the `linux-kvm2` package 
-folder and change the line:
+folder and change the line below from:
 
 ```
 CONFIG_BTRFS_FS=m
@@ -287,7 +286,7 @@ Finally, one more temporary workaround:
 ~/clearlinux/packages/linux-kvm2 $ make generateupstream
 ```
 
-And now we can build the RPM files:
+Now we can build the RPM files:
 
 ```
 ~/clearlinux/packages/linux-kvm2 $ make build
@@ -334,4 +333,4 @@ error occurs.
 in Clear Linux OS yet.
 * Use `make repoadd` in packages that need new dependencies and build 
 one custom package against another new custom package.
-* Use `make clone` or `make pull` in the toplevel folder
+* Use `make clone` or `make pull` in the top-level folder.

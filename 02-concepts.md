@@ -1,13 +1,13 @@
 
-How To Clear - Clear Linux Distribution Concepts
-================================================
+How To Clear - Clear Linux\* distribution concepts
+==================================================
 
 ## What this document explains
 
-In the training, we will be using the Clear Linux OS Team vocabulary
-to describe processes, concepts and data. Since this vocabulary has
-grown over time in the Team, it may not be the most logical naming for
-people who start to lear about how Clear Linux OS is created. This
+In the training, we will use the Clear Linux OS Team vocabulary
+to describe processes, concepts, and data. Since this vocabulary has
+grown over time in the team, it may not be the most logical naming for
+people who start to learn about how Clear Linux OS is created. This
 document attempts to explain the idea behind the terminology.
 
 
@@ -16,14 +16,14 @@ document attempts to explain the idea behind the terminology.
 The concept of updates is central to the design of the Clear Linux
 OS method of delivering and maintaining the OS. In essence, every
 modification to the OS is considered an update. This includes
-installation, updates themselves and the addition of optional
+installation, updates themselves, and the addition of optional
 components. In principle, even rolling back to an older version is
 an update.
 
-The content originates from an "update server". This is implamented by
+The content originates from an "update server". This is implemented by
 a https enabled webserver where the files are served as static content.
-The Clear Linux OS will periodically query the data on the update
-server and determine whether updates are available, and in case the OS
+The Clear Linux OS periodically queries the data on the update
+server and determines whether updates are available, and in case the OS
 wants to install optional components, or even when a new installation
 is performed. In all those cases, the update content files provides
 all the data and metadata to perform all the needed actions.
@@ -53,7 +53,7 @@ many packages.
 
 ## Manifests
 
-Clear Linux' software update content consists of data, and metadata. 
+The Clear Linux software update content consists of data and metadata. 
 The data is the files that end up in the OS. The metadata contains 
 relevant information to properly provision the data to the OS file 
 system, as well as update the system and add or remove additional 
@@ -64,7 +64,7 @@ Each bundle gets its own manifest file. There is a master manifest file
 that describes all manifests to tie it all together.
 
 
-## packs, delta packs and fullfiles
+## Fullfiles, packs, and delta packs
 
 The data that an update provisions to a system can be obtained in three 
 different ways. There are three different methods, and they exist to 
@@ -72,13 +72,13 @@ optimize the delivery of content and speed up updates.
 
 Fullfiles are always generated for every file in every release. This 
 allows any Clear Linux OS to obtain the exact copy of the content for 
-each version directly. This is used for instance in case the OS 
-verification (`swupd verify`) needs to replace a single file.
+each version directly. This would be used if the OS verification
+(`swupd verify`) needed to replace a single file, for instance.
 
 Packs are available for some releases and combine many files to speed 
-up the creation if installation media and large updates. Delta packs 
+up the creation of installation media and large updates. Delta packs 
 are an optimized version of packs that only contain updates (binary 
-diffs) and can not be used without having the original file content.
+diffs) and cannot be used without having the original file content.
 
 In most `swupd update` scenarios, the delta packs will be used as much 
 as possible, since they deliver the update content in the smallest size 
@@ -102,22 +102,22 @@ upstream project as well. Examples are obviously the mixer and swupd
 projects.
 
 The term upstream describes a relationship where content moves from 
-upstream to downstream in a fluent matter, and content is generally 
+upstream to downstream in a fluid manner, and content is generally 
 aimed to be submitted back to upstream but receive significant review. 
 This concept applies also when people create a mixed Clear Linux OS 
 version. In that case, the official Clear Linux OS is the upstream to 
 the mixed version.
 
 
-## Packages vs. Projects
+## Packages vs. projects
 
-In the Clear Linux OS Terminology, we separate the source code that is
+In the Clear Linux OS terminology, we separate the source code that is
 in upstream repositories, and the distribution adaptation of the 
 products of that project.
 
 The definition of a project is the thing that is the upstream of a 
 package. Projects are maintained by individual maintainers. The Clear 
-Linux OS team does not modify the project except for where they are the
+Linux OS team does not modify the project unless they are the
 upstream maintainers. In the same way, people who are maintainers of 
 projects are directly providing content to the Clear Linux OS, with all
 the responsibilities that go with it.
@@ -134,9 +134,11 @@ OS dictates.
 
 Internally, the Clear Linux OS uses the RPM package format to bridge 
 the software source code and the binary software update content. The 
-RPM format is an intermediate way of storing content. It neither is a
-valid file format that `swupd` uses or recognizes, nor is the `rpm`
-program on a Clear Linux OS installation capable of using these files.
+RPM format is an intermediate way of storing content.
+
+Note: `swupd` does *not* use or recognize the RPM file format and
+the `rpm` program on a Clear Linux OS installation is *not* capable
+of using RPM files.
 
 Within the build mechanisms that Clear Linux OS uses, the format is 
 used to store the output of the compilation process and provide 
