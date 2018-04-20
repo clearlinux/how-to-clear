@@ -1,6 +1,6 @@
 
-How To Clear - Clear Linux\* telemetry
-======================================
+How To Clear - Clear Linux OS telemetry
+=======================================
 
 ## What you'll learn in this chapter
 
@@ -12,41 +12,40 @@ How To Clear - Clear Linux\* telemetry
 
 ## Concepts
 
-Clear Linux OS uses a lightweight telemetry solution to allow 
-applications to avoid being concerned with transporting the data and 
-whether a user has opted in or out. The solution can provide near 
+Clear Linux OS uses a lightweight telemetry solution to allow
+applications to avoid being concerned with transporting the data and
+whether a user has opted in or out. The solution can provide near
 real time data to improve applications.
 
-Because software updates in Clear Linux OS are performed automatically, 
-it is important that application developers leverage telemetry where 
-appropriate. Traditional QA testing and functional testing are often 
-incomplete. The Clear Linux OS telemetry solution bridges that gap and 
-helps developers monitor their applications.
+Because software updates in Clear Linux OS are performed automatically,
+it is important that application developers leverage telemetry where
+appropriate. Traditional QA testing and functional testing are often
+incomplete. The Clear Linux OS telemetry solution bridges that gap
+and helps developers monitor their applications.
 
-By default, telemetry isn't opt-out and the installer will ask people 
-if telemetry should be enabled, with the default selection being "not 
-enabled". We do encourage people to enable telemetry to help 
+By default, telemetry isn't opt-out and the installer will ask people
+if telemetry should be enabled, with the default selection being
+"not enabled". We do encourage people to enable telemetry to help
 out and make Clear Linux OS higher quality.
 
-Intel's privacy policies are applicable to the Clear Linux OS telemetry 
-stack, and the Clear Linux OS telemetry does not collect intentionally 
-identifiable information about the user or system owner. People who use 
-the telemetry APIs discussed in this chapter must ensure that their 
+Intel's privacy policies are applicable to the Clear Linux OS telemetry
+stack, and the Clear Linux OS telemetry does not collect intentionally
+identifiable information about the user or system owner. People who
+use the telemetry APIs discussed in this chapter must ensure that their
 use does not conflict with any Intel policies or local privacy laws.
 
-The telemetry API revolves around the delivery of telemetry records as 
-an individual unit to a HTTPS collection service. On the client, a 
-spooling daemon `telemd` takes care of opt-in/out, throttling, and 
-encapsulating the telemetry data. Several telemetry probes generate 
-probe specific payload data and deliver it to the `telemd` service for 
-delivery.
+The telemetry API revolves around the delivery of telemetry records
+as an individual unit to a HTTPS collection service. On the client,
+a spooling daemon `telemd` takes care of opt-in/out, throttling, and
+encapsulating the telemetry data. Several telemetry probes generate
+probe specific payload data and deliver it to the `telemd` service
+for delivery.
 
 
 ## How to start
 
-First, we enable telemetry on the target device. For this, 
-we add the telemetrics bundle to our mix, and make it available 
-to clients.
+First, we enable telemetry on the target device. For this, we add
+the telemetrics bundle to our mix, and make it available to clients.
 
 ```
 ~/mix $ mixer bundle add telemetrics
@@ -54,17 +53,17 @@ Adding bundle "telemetrics" from upstream bundles
 ~/mix $ sudo mixer build all
 ```
 
-We can modify the image to add telemetry by default as a 
-bundle, but we would lose our existing system. We add it on our 
-target device manually for now:
+We can modify the image to add telemetry by default as a bundle,
+but we would lose our existing system. We add it on our target device
+manually for now:
 
 ```
 ~ # swupd update
 ~ # swupd bundle-add telemetrics
 ```
 
-Essentially, we now have everything to create telemetry events, 
-even from C programs or Python\* if needed, because the telemetry bundle 
+Essentially, we now have everything to create telemetry events, even
+from C programs or Python\* if needed, because the telemetry bundle
 provides a simple pipe-based CLI program that can be called trivially:
 
 ```
@@ -86,24 +85,24 @@ Application Options:
   -e, --event-id        Event id to use in the record
 ```
 
-Using the C library (`libtelemetry.so` - `man 3 telemetry`) uses the 
+Using the C library (`libtelemetry.so` - `man 3 telemetry`) uses the
 exact same API parameters and yields the same effect.
- 
-Let's try generating a simple heartbeat event, similar to the `hprobe` 
+
+Let's try generating a simple heartbeat event, similar to the `hprobe`
 heartbeat probe that Clear Linux OS includes by default.
  
 ```
 ~ # telem-record-gen -c org.clearlinux/hello/world -p "hello"
 ```
 
-We won't see anything happen, but we can track existing and previous 
+We won't see anything happen, but we can track existing and previous
 telemetry events with `telemctl`:
 
 ```
 ~ # telemctl journal
 ```
 
-A full example of the heartbeat probe in C is documented in the source 
+A full example of the heartbeat probe in C is documented in the source
 code here:
 
 * [https://github.com/clearlinux/telemetrics-client/blob/master/src/probes/hello.c]
@@ -111,16 +110,16 @@ code here:
 
 ## Pointing telemetry to a custom backend
 
-If you have a functional custom collector, you can modify where your 
-telemetry records get sent by modifying 
-`/etc/telemetrics/telemetrics.conf` and changing the `server` value to 
-point to the new telemetry collection URL. Setting up a custom 
+If you have a functional custom collector, you can
+modify where your telemetry records get sent by modifying
+`/etc/telemetrics/telemetrics.conf` and changing the `server` value
+to point to the new telemetry collection URL. Setting up a custom
 collector is not covered in this training.
 
-If you are deploying a custom backend for many Clear Linux OS 
-installations, you may want to patch the system wide default 
-`/usr/share/defaults/telemetrics/telemetrics.conf` file to include a 
-custom collection URL built into the binary.
+If you are deploying a custom backend for many Clear Linux OS
+installations, you may want to patch the system wide default
+`/usr/share/defaults/telemetrics/telemetrics.conf` file to include
+a custom collection URL built into the binary.
 
 
 ## Further reading

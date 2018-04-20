@@ -12,12 +12,12 @@ How To Clear - QA and testing Clear update content
 
 It is virtually impossible as a human being to continuously monitor
 and test the proper functioning of a conglomerate as large as a normal
-Linux\* distribution. For this reason, we need to automate testing
-as much as possible and impose strict error checking at every level.
+Linux distribution. For this reason, we need to automate testing as
+much as possible and impose strict error checking at every level.
 
-In Clear Linux OS, we have created several layers of testing that
-will be Open Source in the future. At the time of writing this
-document they are not Open Source, so this chapter is incomplete.
+In Clear Linux OS, we have created several layers of testing that will
+be Open Source in the future. At the time of writing this document
+they are not Open Source, so this chapter is incomplete.
 
 The automated package testing that comes with many of our packages
 is available at this time.
