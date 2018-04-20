@@ -325,10 +325,10 @@ Success!
 
 ## Exercises
 
-* Use `make shell` in a package folder after building, or when a build 
+* Use `make shell` in a package folder after building, or when a build
 error occurs.
-* Use `make autospecnew NAME=<name> URL=<url>` on something that isn't 
+* Use `make autospecnew NAME=<name> URL=<url>` on something that isn't
 in Clear Linux OS yet.
-* Use `make repoadd` in packages that need new dependencies and build 
+* Use `make repoadd` in packages that need new dependencies and build
 one custom package against another new custom package.
 * Use `make clone` or `make pull` in the top-level folder.

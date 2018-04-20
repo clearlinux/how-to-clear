@@ -102,22 +102,22 @@ Note the version number in the URL isn't `21810` but this content
 comes from an earlier update, as listed in the Manifest (`21530`).
 
 
-### Content 
+### Content
 
-The content that `swupd` delivers is provided to the OS in different 
-ways to optimize the download and make it as small as possible. For the 
-most common cases, the server calculates the minimum needed delta 
-between the content files and creates a binary diff that is very 
-efficient. If the client needs a clean, and full, copy of the 
-original file, this is also provided. For the case of someone 
-installing an entire bundle, the bundle content is provided as a 
+The content that `swupd` delivers is provided to the OS in different
+ways to optimize the download and make it as small as possible. For the
+most common cases, the server calculates the minimum needed delta
+between the content files and creates a binary diff that is very
+efficient. If the client needs a clean, and full, copy of the
+original file, this is also provided. For the case of someone
+installing an entire bundle, the bundle content is provided as a
 tarball of the entire content all at once.
 
 The content comes in compressed tar files:
 
 ```
 $ curl -s -L -O https://download.clearlinux.org/update/21530/files/634ed1be7098435e3a3f28f13740b260e171e9d65891a002998d1e5fc691b471.tar
-$ file 634ed1be7098435e3a3f28f13740b260e171e9d65891a002998d1e5fc691b471.tar 
+$ file 634ed1be7098435e3a3f28f13740b260e171e9d65891a002998d1e5fc691b471.tar
 634ed1be7098435e3a3f28f13740b260e171e9d65891a002998d1e5fc691b471.tar: XZ compressed data
 ```
 
@@ -229,16 +229,16 @@ from our own changes. We start the mix with a slightly older version
 of Clear Linux OS to demonstrate how this works.
 
 ```
-~/mix $ mixer init --clear-version 21530 --mix-version 10 --local-rpms 
+~/mix $ mixer init --clear-version 21530 --mix-version 10 --local-rpms
 ```
 
-* `init` tells mixer to create the needed configuration files and 
+* `init` tells mixer to create the needed configuration files and
 folders in the workspace
-* `--clear-version` tells mixer to start the mix as a mix to this 
+* `--clear-version` tells mixer to start the mix as a mix to this
 upstream Clear Linux OS version
-* `--mix-version` tells mixer that our own version will start with `10` 
+* `--mix-version` tells mixer that our own version will start with `10`
 which is the default
-* `--local-rpms` tells mixer to create folders where we can later add 
+* `--local-rpms` tells mixer to create folders where we can later add
 our own custom RPM files
 
 ## builder.conf
@@ -289,10 +289,10 @@ do not provide a path to an existing one, and signs the manifest file.
 
 ```
 ~/mix $ mixer bundle list
-bootloader     (upstream bundle) 
-kernel-native  (upstream bundle) 
-os-core        (upstream bundle) 
-os-core-update (upstream bundle) 
+bootloader     (upstream bundle)
+kernel-native  (upstream bundle)
+os-core        (upstream bundle)
+os-core-update (upstream bundle)
 ```
 
 The bundles in the mix are specified in the mix bundle list. Mixer
@@ -342,10 +342,10 @@ with the following command:
 
 ```
 ~/mix $ mixer bundle list local
-bootloader     (upstream bundle) 
-kernel-native  (upstream bundle) 
-os-core        (upstream bundle) 
-os-core-update (upstream bundle) 
+bootloader     (upstream bundle)
+kernel-native  (upstream bundle)
+os-core        (upstream bundle)
+os-core-update (upstream bundle)
 ```
 
 Both the local and upstream bundle list commands accept the --tree
@@ -403,7 +403,7 @@ content again and you are finished.
 
 ## What else to try
 
-* Edit an upstream bundle and change the package list to include or 
+* Edit an upstream bundle and change the package list to include or
 exclude packages.
 * Validate a modified bundle.
 * Downgrade your mix to an older upstream version.

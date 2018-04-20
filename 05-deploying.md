@@ -200,5 +200,5 @@ Then run `swupd update` inside the VM, we will see the update apply.
 * List your own mix bundles on your target system.
 * Verify your install.
 * Downgrade your target system with `swupd`, and then update it again.
-* Create an installer image using the installer configuration file at 
+* Create an installer image using the installer configuration file at
 [https://download.clearlinux.org/current/config/image/installer-config.json]. You will need the referenced Python* script.

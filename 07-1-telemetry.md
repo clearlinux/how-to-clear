@@ -90,7 +90,7 @@ exact same API parameters and yields the same effect.
 
 Let's try generating a simple heartbeat event, similar to the `hprobe`
 heartbeat probe that Clear Linux OS includes by default.
- 
+
 ```
 ~ # telem-record-gen -c org.clearlinux/hello/world -p "hello"
 ```
@@ -126,4 +126,3 @@ a custom collection URL built into the binary.
 
 * [https://clearlinux.org/features/telemetry]
 * [https://clearlinux.org/documentation/clear-linux/tutorials/telemetry-backend]
-

@@ -46,4 +46,3 @@ The results of the tests are stored by the `common` tooling in the
 `testresults` file. You should inspect this file after each build
 to make sure that testing remains functional and no new errors are
 introduced with each package change.
-

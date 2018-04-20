@@ -22,4 +22,3 @@ are also described in this project.
 ## Issues?
 
 See [https://github.com/clearlinux/how-to-clear/blob/master/01-index.md#need-help]
-

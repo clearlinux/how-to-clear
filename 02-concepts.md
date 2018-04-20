@@ -148,4 +148,3 @@ code dependency information. Using these dependencies, the mixer can
 create meaningful bundles that contain the needed components to make
 software functional without having to describe all dependencies in
 the bundle definition.
-
