@@ -110,27 +110,8 @@ we have.
 
 ```
 ~/clearlinux $ make clone_dmidecode
+~/clearlinux $ cd packages/dmidecode
 ```
-
-```
-**********************************************************************
-**                              whoops                              **
-**                                                                  **
-** Due to bugs in our tooling, this section isn't entirely as we    **
-** would have liked it to be. We're working on resolving the issues **
-** to make this part of the training much more simple, but for now  **
-** you'll have to work around some bugs here.                       **
-**                                                                  **
-**********************************************************************
-```
-
-```
-# workaround
-~/clearlinux $ mv packages/dmidecode packages/dmidecode2
-~/clearlinux $ cd packages/dmidecode2
-```
-
-Change `Makefile` such that `PACKAGE_NAME` is `dmidecode2` as well.
 
 Since `dmidecode` is already present in Clear Linux OS, we can just
 start using that package and make modifications to it. This allows us
@@ -160,15 +141,15 @@ to be available, which is not the case on Clear Linux OS. We can
 therefore just remove them from the RPM files without penalty.
 
 ```
-~/clearlinux/packages/dmidecode2 $ make autospec
+~/clearlinux/packages/dmidecode $ make autospec
 ```
 
 We end up with several new RPM files under `results/`. This brings
-us to the next phase: Adding `dmidecode2` into our mix content and
+us to the next phase: Adding `dmidecode` into our mix content and
 pushing it to our target device.
 
 
-## Adding `dmidecode2` to our mix
+## Adding `dmidecode` to our mix
 
 We need to maintain an RPM repository. An RPM repository is a
 combination of a few RPM files and some metadata that allows programs
@@ -186,10 +167,10 @@ could copy these files manually over to the `local-rpms` folder in the
 to do this more efficiently.
 
 ```
-~/clearlinux/packages/dmidecode2 $ cp results/*x86_64*rpm ~/mix/local-rpms/
+~/clearlinux/packages/dmidecode $ cp results/*x86_64*rpm ~/mix/local-rpms/
 ```
 
-Next, we can include `dmidecode2` in several ways to our update
+Next, we can include `dmidecode` in several ways to our update
 content.  We can create a new local bundle, we can modify an existing
 upstream bundle, or we can include an upstream bundle that already has
 `dmidecode` present. For simplicity, we'll make a new local bundle:
@@ -203,7 +184,7 @@ Note that the order here isn't a mistake - `edit` allows you to
 register a new bundle, and `add` inserts it to the list of bundles
 that will be included in the build.
 
-Add the `dmidecode2` RPM file name to the bundle, and you're ready
+Add the `dmidecode` RPM file name to the bundle, and you're ready
 to deploy the change:
 
 ```
