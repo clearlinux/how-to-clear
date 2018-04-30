@@ -221,19 +221,8 @@ new kernel.
 
 ```
 ~/clearlinux $ make clone_linux-kvm
+~/clearlinux $ cd packages/linux-kvm
 ```
-
-Again, we have to do a workaround here with the package name:
-
-```
-# workaround
-~/clearlinux $ mv packages/linux-kvm packages/linux-kvm2
-~/clearlinux $ cd packages/linux-kvm2
-~/clearlinux/packages/linux-kvm2 $ mv linux-kvm.spec linux-kvm2.spec
-```
-
-You must edit `Makefile` again as well as `linux-kvm2.spec` to change
-the package name in both files and add the `2` in there.
 
 We can do a ton of changes to this kernel. For this example, we'll
 disable an option that is easily verifiable later on. On the target,
@@ -245,7 +234,7 @@ kernel by doing:
 ~ # grep btrfs /proc/filesystems
 ```
 
-To disable this, edit the `config` file in the `linux-kvm2` package
+To disable this, edit the `config` file in the `linux-kvm` package
 folder and change the line below from:
 
 ```
@@ -258,17 +247,18 @@ to:
 # CONFIG_BTRFS_FS is not set
 ```
 
-Finally, one more temporary workaround:
+We need to make sure to increment the package release number to make sure
+that our new RPM version is used instead of the version on the remote
+RPM repository:
 
 ```
-# workaround
-~/clearlinux/packages/linux-kvm2 $ make generateupstream
+~/clearlinux/packages/linux-kvm $ make bumpnogit
 ```
 
 Now we can build the RPM files:
 
 ```
-~/clearlinux/packages/linux-kvm2 $ make build
+~/clearlinux/packages/linux-kvm $ make build
 ```
 
 This will take a little bit of time, as the kernel isn't small. Once
@@ -276,17 +266,14 @@ the process finishes, you should have 2 binary RPM files under the
 `results` folder that we can give back to mixer again:
 
 ```
-~/clearlinux/packages/linux-kvm2 $ cp results/*x86_64.rpm ~/mix/local-rpms/
+~/clearlinux/packages/linux-kvm $ cp results/*x86_64.rpm ~/mix/local-rpms/
 ```
 
 Switch back to the mixer, as we can now mix in our changed kernel.
 
 ```
-~/clearlinux/packages/linux-kvm2 $ cd ~/mix
-~/mix $ mixer bundle edit kernel-kvm
+~/clearlinux/packages/linux-kvm $ cd ~/mix
 ```
-
-Change `linux-kvm` to `linux-kvm2`.
 
 ```
 ~/mix $ sudo mixer build all
