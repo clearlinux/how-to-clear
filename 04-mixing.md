@@ -229,7 +229,7 @@ from our own changes. We start the mix with a slightly older version
 of Clear Linux OS to demonstrate how this works.
 
 ```
-~/mix $ mixer init --clear-version 21530 --mix-version 10 --local-rpms
+~/mix $ mixer init --clear-version 22410 --mix-version 10 --local-rpms
 ```
 
 * `init` tells mixer to create the needed configuration files and
@@ -381,7 +381,7 @@ If you desire to update the upstream version of your mix and pull in
 upstream changes, you can do this selectively or automatically.
 
 ```
-~/mix $ mixer versions update --upstream-version 21570
+~/mix $ mixer versions update --upstream-version 22180
 ```
 
 Or:
