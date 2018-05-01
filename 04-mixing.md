@@ -229,7 +229,7 @@ from our own changes. We start the mix with a slightly older version
 of Clear Linux OS to demonstrate how this works.
 
 ```
-~/mix $ mixer init --clear-version 22410 --mix-version 10 --local-rpms
+~/mix $ mixer init --clear-version 22140 --mix-version 10 --local-rpms
 ```
 
 * `init` tells mixer to create the needed configuration files and
