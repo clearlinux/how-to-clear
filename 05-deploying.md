@@ -67,7 +67,7 @@ Once this file is in place, we start the http server and you can view
 the content by visiting `http://localhost`:
 
 ```
-~/mix $ systemctl restart nginx
+~/mix $ sudo systemctl restart nginx
 ```
 
 ## Conveying the URL to mixer
