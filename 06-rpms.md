@@ -188,7 +188,7 @@ Add the `dmidecode` RPM file name to the bundle, and you're ready
 to deploy the change:
 
 ```
-~/mix $ sudo mixer build all
+~/mix $ mixer build all
 ```
 
 After this, we can go to our target device and install the new bundle
@@ -276,7 +276,8 @@ Switch back to the mixer, as we can now mix in our changed kernel.
 ```
 
 ```
-~/mix $ sudo mixer build all
+~/mix $ mixer add-rpms
+~/mix $ mixer build all
 ```
 
 Then we can switch to the target device and verify the changes again:

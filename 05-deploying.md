@@ -90,8 +90,8 @@ of this command. All entries should be valid, but we recommend you
 pick the top one listed for use in the `builder.conf`:
 
 ```
-CONTENTURL=http://10.1.2.138/
-VERSIONURL=http://10.1.2.138/
+CONTENTURL=http://10.276.302.138/
+VERSIONURL=http://10.276.302.138/
 ```
 
 Now that that is in place, we can proceed to the next step, which is
@@ -122,7 +122,7 @@ available in our content stream and the image will be able to
 include it:
 
 ```
-~/mix $ sudo mixer build all
+~/mix $ mixer build all
 ```
 
 You should verify that the `www` content contains a new version,
@@ -159,7 +159,7 @@ After this file is in place, `mixer` can properly start `ister`
 for us with the `build image` subcommand.
 
 ```
-~/mix $ sudo mixer build image
+~/mix $ sudo mixer build image --native
 ```
 
 Note: If you have made any changes to `builder.conf` or the content
@@ -189,7 +189,7 @@ content version as the last available update.
 If we create a new update on the outside of the VM quickly with:
 
 ```
-~/mix $ sudo mixer build all
+~/mix $ mixer build all
 ```
 
 Then run `swupd update` inside the VM, we will see the update apply.

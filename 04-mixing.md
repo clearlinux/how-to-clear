@@ -356,7 +356,7 @@ between the bundles in the mix.
 ## Create the initial mix content
 
 ```
-~/mix $ sudo mixer build all
+~/mix $ mixer build all
 <snip>
 
 ```
@@ -398,7 +398,7 @@ content again and you are finished.
 
 
 ```
-~/mix $ sudo mixer build all
+~/mix $ mixer build all
 ```
 
 ## What else to try
