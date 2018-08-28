@@ -177,6 +177,13 @@ upstream bundle, or we can include an upstream bundle that already has
 
 ```
 ~/mix $ mixer bundle edit dmidecode
+```
+
+Edit the file and insert the `dmidecode` package name, without quotes
+or leading `#` characters. Save the file, and add it to the bundle
+list:
+
+```
 ~/mix $ mixer bundle add dmidecode
 ```
 
