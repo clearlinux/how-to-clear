@@ -8,7 +8,28 @@ In the training, we will use the Clear Linux OS Team vocabulary to
 describe processes, concepts, and data. Since this vocabulary has
 grown over time in the team, it may not be the most logical naming for
 people who start to learn about how Clear Linux OS is created. This
-document attempts to explain the idea behind the terminology.
+chapter attempts to explain the idea behind the terminology.
+
+
+## Goal
+
+The end goal of this training is that the student understands how
+to create and deliver a custom version of Clear Linux OS using the
+tooling explained in this training. The full picture of how that
+looks is graphically summarized in the following graph:.
+
+![Clear Mixer Architecture](/files/clear-mixer-architecture.png)
+
+The graph shows how content from the official Clear Linux OS and any
+custom content can be mixed to create both images, and an update
+content stream.
+
+The update content stream will need to be made available as HTTP or
+HTTPS data on a network connection. It is the equivalent of a package
+repository.
+
+The initial setup of machines needs to happen with bootable images
+that can either live boot, or install the base OS.
 
 
 ## Updates
