@@ -1,0 +1,22 @@
+{
+    "gitbook": ">=3.0.0",
+    "plugins": ["autocover", "download-pdf-link"],
+    "title": "How to Clear",
+    "author": "T",
+    "pluginsConfig": {
+        "autocover": {
+            "font": {
+                "size": null,
+                "family": "Impact",
+                "color": "#FFF"
+            },
+            "size": {
+                "w": 1800,
+                "h": 2360
+            },
+            "background": {
+                "color": "#09F"
+            }
+        }
+    }
+}
