@@ -62,6 +62,17 @@ This training document is a living training that will be adopted in
 the future to adjust for changes in the tooling and options, as well
 as any fixes that must be included.
 
+All of the covered tools have been documented in full in separate
+official documentation projects that can be found here:
+
+[ClearLinux Documentation](https://clearlinux.org/documentation)
+
+This training document is not designed as a reference documentation
+for `mixer`, `autospec`, `common`, `swupd` or any of the referenced
+programs, instead, it focuses on demonstrating the fundamental
+functionality and integration of these tools and what they can
+accomplish for the user in a nutshell.
+
 The content itself is designed to be self-contained and allow someone
 to use a clean Clear Linux OS installation to do the training in its
 entirety. There should not be a need to install third party software,

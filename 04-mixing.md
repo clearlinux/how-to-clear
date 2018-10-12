@@ -12,6 +12,17 @@ How To Clear - Mixing content and creating updates
 * Creating the update content
 * Creating an update
 
+
+## Reference Documentation:
+
+The below guide skips over significant details that may be important to
+you. In case of doubt, please refer to the official mixer documentation.
+
+More reading:
+[upstream project](https://github.com/clearlinux/mixer-tools)
+[Mixer documentation](https://clearlinux.org/documentation/clear-linux/guides/maintenance/mixer)
+
+
 ## The output
 
 The `swupd` software delivery mechanism treats everything as an update.
@@ -229,43 +240,40 @@ from our own changes. We start the mix with a slightly older version
 of Clear Linux OS to demonstrate how this works.
 
 ```
-~/mix $ mixer init --clear-version 22140 --mix-version 10 --local-rpms
+~/mix $ mixer init --local-rpms
 ```
 
 * `init` tells mixer to create the needed configuration files and
 folders in the workspace
-* `--clear-version` tells mixer to start the mix as a mix to this
-upstream Clear Linux OS version
-* `--mix-version` tells mixer that our own version will start with `10`
-which is the default
 * `--local-rpms` tells mixer to create folders where we can later add
 our own custom RPM files
 
 ## builder.conf
 
 ```
-[Builder]
-SERVER_STATE_DIR=/home/clear/mix/update
-BUNDLE_DIR=/home/clear/mix/mix-bundles
-YUM_CONF=/home/clear/mix/.yum-mix.conf
-CERT=/home/clear/mix/Swupd_Root.pem
-VERSIONS_PATH=/home/clear/mix
+#VERSION 1.0
 
-[swupd]
-BUNDLE=os-core-update
-CONTENTURL=<URL where the content will be hosted>
-VERSIONURL=<URL where the version of the mix will be hosted>
-FORMAT=1
+[Builder]
+  CERT = "/home/clr/mix/Swupd_Root.pem"
+  SERVER_STATE_DIR = "/home/clr/mix/update"
+  VERSIONS_PATH = "/home/clr/mix"
+  YUM_CONF = "/home/clr/mix/.yum-mix.conf"
+
+[Swupd]
+  BUNDLE = "os-core-update"
+  CONTENTURL = "<URL where the content will be hosted>"
+  VERSIONURL = "<URL where the version of the mix will be hosted>"
 
 [Server]
-debuginfo_banned=true
-debuginfo_lib=/usr/lib/debug/
-debuginfo_src=/usr/src/debug/
+  DEBUG_INFO_BANNED = "true"
+  DEBUG_INFO_LIB = "/usr/lib/debug"
+  DEBUG_INFO_SRC = "/usr/src/debug"
 
 [Mixer]
-LOCAL_BUNDLE_DIR=/home/clear/mix/local-bundles
-LOCAL_RPM_DIR=/home/clear/mix/local-rpms
-LOCAL_REPO_DIR=/home/clear/mix/local-yum
+  LOCAL_BUNDLE_DIR = "/home/clr/mix/local-bundles"
+  LOCAL_REPO_DIR = ""
+  LOCAL_RPM_DIR = ""
+  DOCKER_IMAGE_PATH = "clearlinux/mixer"
 ```
 
 The mixer initialization creates a `builder.conf` file that will store

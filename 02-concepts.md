@@ -49,6 +49,10 @@ to install optional components, or even when a new installation is
 performed. In all those cases, the update content files provides all
 the data and metadata to perform all the needed actions.
 
+More reading:
+
+[Software Updates in Clear Linux](https://clearlinux.org/documentation/clear-linux/concepts/swupd-about)
+
 
 ## Bundles
 
@@ -70,6 +74,10 @@ traditional packages are not visible to the user. In some cases, it
 could mean that a bundle effectively contains a single package (e.g.
 the "curl" bundle), but in most cases a bundle contains several or
 even many packages.
+
+More Reading:
+
+[About bundles](https://clearlinux.org/documentation/clear-linux/concepts/bundles-about#bundles-about)
 
 
 ## Manifests
