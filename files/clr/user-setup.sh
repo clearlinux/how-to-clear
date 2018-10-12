@@ -6,6 +6,7 @@ SERVERCA=""
 CLIENTCA=""
 WORKSPACE="clearlinux"
 PACKAGE_REPOS=
+NEEDS_KVM_GROUP=
 
 help() {
   printf "%s\n" >&2 "Usage: $SCRIPT [options]" \
@@ -115,6 +116,10 @@ required_progs() {
 
 required_progs
 
+if ! groups | grep -qw kvm; then
+  NEEDS_KVM_GROUP=1
+fi
+
 echo "Initializing development workspace in \"$WORKSPACE\" . . ."
 
 mkdir "$WORKSPACE"
@@ -146,8 +151,10 @@ if [ "$USE_KOJI" ]; then
   fi
 fi
 
-echo "Adding user to kvm group . . ."
-sudo usermod -a -G kvm $USER
+if [ -n "$NEEDS_KVM_GROUP" ]; then
+  echo "Adding user to kvm group . . ."
+  sudo usermod -a -G kvm $USER
+fi
 
 echo "Cloning special project repositories . . ."
 make ${JOBS_ARG} clone-projects
@@ -179,7 +186,9 @@ if [ -z "$PACKAGE_REPOS" ]; then
   echo "NOTE: To clone all package repos, run \"cd $WORKSPACE; make [-j NUM] clone-packages\""
   echo "NOTE: To clone a single package repo with NAME, run \"cd $WORKSPACE; make clone_NAME\""
 fi
-echo 'NOTE: logout and log back in to finalize the setup process'
+if [ -n "$NEEDS_KVM_GROUP" ]; then
+  echo 'NOTE: logout and log back in to finalize the setup process'
+fi
 
 
 # vi: ft=sh sw=2 et sts=2
